@@ -1,110 +1,19 @@
-class Solution {
-    public String multiply(String num1, String num2) {
-        Solution sol = new Solution();
-        int n = num1.length() - 1;
-        int m = num2.length() - 1;
-        int as = m;
-        StringBuilder result1 = new StringBuilder();
-        int carry = 0;
-        String s3 = "0";
-        int k =1 ;
+public String multiply(String num1, String num2) {
+    int m = num1.length(), n = num2.length();
+    int[] pos = new int[m + n];
+   
+    for(int i = m - 1; i >= 0; i--) {
+        for(int j = n - 1; j >= 0; j--) {
+            int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0'); 
+            int p1 = i + j, p2 = i + j + 1;
+            int sum = mul + pos[p2];
 
-
-        if(num1.contains("0") && num1.length() == 1)
-            return "0";
-        
-        if(num2.contains("0") && num2.length() == 1)
-            return "0";
-
-        if(n >= m){
-            for(int i = m ; i >= 0; i--){
-            int mul = 1;
-            int s = num2.charAt(i) - '0';
-            for(int j = n ; j >= 0 ; j--){
-                int f = num1.charAt(j) - '0';
-                mul = ((s * f) + carry) % 10;
-                carry = ((s * f) + carry) / 10;
-                result1.append(mul);
-            }
-
-             if(carry != 0)
-                result1.append(carry);
-
-            if(k == 1){
-                s3 = sol.addStrings(result1.reverse().toString(), s3);
-                ++k;
-            } else{
-                for(int l = 0 ; l < k - 1; l++){
-                    if(l % 2 != 0)
-                        result1 = result1.append("0");
-                    else
-                        result1 = result1.reverse().append("0");
-                }
-                s3 = sol.addStrings(result1.toString(), new StringBuilder(s3).reverse().toString());
-                
-                ++k;
-            }
-            result1.delete(0, result1.length());
-            carry = 0;
+            pos[p1] += sum / 10;
+            pos[p2] = (sum) % 10;
         }
-        } else{
-
-        for(int i = n ; i >= 0; i--){
-            int mul = 1;
-            int s = num1.charAt(i) - '0';
-            for(int j = m ; j >= 0 ; j--){
-                int f = num2.charAt(j) - '0';
-                mul = ((s * f) + carry) % 10;
-                carry = ((s * f) + carry) / 10;
-                result1.append(mul);
-            }
-
-             if(carry != 0)
-                result1.append(carry);
-
-            if(k == 1){
-                s3 = sol.addStrings(result1.reverse().toString(), s3);
-                ++k;
-            } else{
-                for(int l = 0 ; l < k - 1; l++){
-                    if(l % 2 != 0)
-                        result1 = result1.append("0");
-                    else
-                        result1 = result1.reverse().append("0");
-                }
-                s3 = sol.addStrings(result1.toString(), new StringBuilder(s3).reverse().toString());
-                ++k;
-            }
-            result1.delete(0, result1.length());
-            carry = 0;
-        }
-
-        }
-        
-        return new StringBuilder(s3).reverse().toString();
-    }
-
-    public String addStrings(String num1, String num2) {
-        //System.out.println(num1+" : "+num2);
-        int n = num1.length() - 1;
-        int m = num2.length() - 1;
-        StringBuilder result = new StringBuilder();
-        int carry = 0;
-        while(n >= 0 || m >=0){
-            int n1 = n >= 0 ? num1.charAt(n) - '0' : 0;
-            int m1 = m >=0 ? num2.charAt(m) - '0' : 0;
-            int value = (n1 + m1 + carry) % 10;
-            carry = (n1 + m1 + carry) / 10;
-            result.append(value);
-            --n;
-            --m;
-        }
-        if(carry != 0)
-            result.append(carry);
-        
-        System.out.println(num1+" + "+num2+" = "+result.reverse().toString());
-
-        return result.reverse().toString();
-    }
-
+    }  
+    
+    StringBuilder sb = new StringBuilder();
+    for(int p : pos) if(!(sb.length() == 0 && p == 0)) sb.append(p);
+    return sb.length() == 0 ? "0" : sb.toString();
 }
