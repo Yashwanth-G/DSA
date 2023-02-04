@@ -71,7 +71,7 @@ public class ArrayOperations {
                         int search = scan.nextInt();
                         int position = searchElement(arr, search);
                         if(position != -1)
-                            System.out.println("Element "+search+" found in the array at position: "+position);
+                            System.out.println("Element "+search+" found in the array at position: "+(position+1));
                         else
                             System.out.println("Element "+search+" not found in the array");
                         break;
