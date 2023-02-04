@@ -1,0 +1,35 @@
+A. While adding two integers without using any built-in methods the code is below:
+    public String addStrings(String num1, String num2) {
+        StringBuilder res = new StringBuilder();
+
+        int carry = 0;
+        int p1 = num1.length() - 1;
+        int p2 = num2.length() - 1;
+        
+        while (p1 >= 0 || p2 >= 0) {
+        
+            // Converting each character in string1 to integer
+            int x1 = p1 >= 0 ? num1.charAt(p1) - '0' : 0;
+            
+            // Converting each character in string2 to integer 
+            int x2 = p2 >= 0 ? num2.charAt(p2) - '0' : 0;
+            
+            // We are doping mode with 10 because for example if I am 
+            // adding 8 + 8 = 16 now I will store 6 in value and 1, I will
+            // store in carry variable and use it while adding next time.
+            
+            // For storing answer
+            int value = (x1 + x2 + carry) % 10;
+            
+            // For storing carry
+            carry = (x1 + x2 + carry) / 10;
+            res.append(value);
+            p1--;
+            p2--;    
+        }
+        
+        if (carry != 0)
+            res.append(carry);
+        
+        return res.reverse().toString();
+    }
