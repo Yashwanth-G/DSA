@@ -89,6 +89,7 @@ public class ArrayOperations {
             if(flag)
                 break;
         }
+        scan.close();
     }
 
     private static int[] deleteAtPosition(int[] arr, int pos2) {
