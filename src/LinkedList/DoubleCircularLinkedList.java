@@ -27,7 +27,7 @@ public class DoubleCircularLinkedList {
         } else{
             Node temp = head;
             boolean flag = true;
-            while(true){
+            while(true && temp != null){
                 if(flag == true){
                     System.out.print(temp.val);
                     flag = false;
@@ -48,7 +48,7 @@ public class DoubleCircularLinkedList {
         } else{
             Node last = head.prev;
             boolean flag = true;
-            while(true){
+            while(true && last != null){
                 if(flag == true){
                     System.out.print(last.val);
                     flag = false;
@@ -102,8 +102,7 @@ public class DoubleCircularLinkedList {
                 Node temp = head;
                 head = head.next;
                 if(temp == head) {
-                    head.prev = null;
-                    head.next = null;
+                    head = null;
                 } else{
                     head.prev = last;
                     last.next = head;
